@@ -4,7 +4,7 @@ const knex = require('../db/connection');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  knex('contacts').innerJoin('addresses', 'addresses.id', 'contacts.address_id').then(function (contactsAndAddresses) {
+  knex('contacts').innerJoin('addresses', 'contacts.address_id', 'addresses.id').then(function (contactsAndAddresses) {
     res.render('index', {contactsAndAddresses})
   })
 })
@@ -28,10 +28,12 @@ router.post('/', function(req, res, next) {
 console.log(req.body['address_id']);
   var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
   knex('contacts').insert(person, '*').then(function () {
-    console.log(person);
+    console.log(person)
     res.redirect('/')
   })
 })
+
+// router.delete('/:id')
 
 
 

@@ -14,9 +14,9 @@
   <input class="form-control" id="email_address" type="text" name="email_address" placeholder="Email" value=""></br>
 
   <label for="img_url">Image URL:</label>
-  <input class="form-control" id="img_url" type="text" name="img_url" placeholder="Image URL" value=""></br>
+  <input class="form-control" id="img_url" type="text" name="img_url" placeholder="" value="http://fillmurray.com/200/300"></br>
 
-  <select class="custom-select">
+  <select class="custom-select" name="address_id">
     <option selected>Address</option>
     {{#each address}}
     <option name="address_id" value="{{address_id}}">{{line_1}}, {{line_2}}, {{city}}</option>
