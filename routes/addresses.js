@@ -8,8 +8,16 @@ router.get('/', function (req, res, next) {
     })
 })
 
+router.get('/new', function (req, res, next) {
+  res.render('addresses/new-address')
+})
 
-
+router.post('/', function (req, res, next) {
+  var address = { id, line_1, line_2, city, zip } = req.body
+  knex('addresses').insert(address).then(function() {
+    res.redirect('/addresses')
+  })
+})
 
 
 
