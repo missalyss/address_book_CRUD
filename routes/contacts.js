@@ -10,7 +10,10 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/new', function(req, res, next) {
-  res.render('contacts/shared/new')
+  knex('addresses').innerJoin('contacts', 'addresses.id', 'contacts.address_id').then(function (address) {
+    console.log(address);
+    res.render('contacts/shared/new', {address})
+  })
 })
 
 router.get('/:id', function(req, res, next) {
@@ -22,7 +25,12 @@ router.get('/:id', function(req, res, next) {
 })
 
 router.post('/', function(req, res, next) {
-  knex('contacts')
+console.log(req.body['address_id']);
+  var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
+  knex('contacts').insert(person, '*').then(function () {
+    console.log(person);
+    res.redirect('/')
+  })
 })
 
 

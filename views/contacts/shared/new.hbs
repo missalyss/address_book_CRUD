@@ -1,5 +1,5 @@
 <h3>New Contact</h3>
-<form class="form-group" action="/contacts/" method="post">
+<form class="form-group" action="/contacts" method="post">
 
   <label for="first_name">First Name:</label>
   <input class="form-control" id="first_name" type="text" name="first_name" placeholder="First Name" value=""></br>
@@ -16,6 +16,12 @@
   <label for="img_url">Image URL:</label>
   <input class="form-control" id="img_url" type="text" name="img_url" placeholder="Image URL" value=""></br>
 
+  <select class="custom-select">
+    <option selected>Address</option>
+    {{#each address}}
+    <option name="address_id" value="{{address_id}}">{{line_1}}, {{line_2}}, {{city}}</option>
+    {{/each}}
+  </select> </br></br>
 
   <button type="submit" class="btn btn-primary">Submit</button>
 
