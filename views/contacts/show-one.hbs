@@ -1,14 +1,12 @@
-<h1>Address Book</h1>
 
-
-{{#each contactsAndAddresses}}
+{{#each onePerson}}
 <div class="row">
   <hr />
   <div class="col-lg-3">
     <img class="index_img" src="{{img_url}}" alt="profile picture">
   </div>
   <div class="col-lg-9">
-    <a href="/contacts/{{id}}"><h2>{{first_name}} {{last_name}}</h2></a>
+    <h2>{{first_name}} {{last_name}}</h2>
     <ul>
       <li>Phone: {{phone_number}}</li>
       <li>Email: {{email_address}}</li>
