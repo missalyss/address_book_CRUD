@@ -3,42 +3,51 @@ var router = express.Router();
 const knex = require('../db/connection');
 
 //rendering routes
-router.get('/', getAllTables)
+router.get('/', joinTablesAndRender('index'))
 router.get('/new', newContactForm)
-router.get('/:id', showOneContact )
+router.get('/:id', findIdAndRender('contacts/show-one'))
+router.get('/:id/edit', findIdAndRender('contacts/edit-contact'))
 
-function getAllTables(req, res, next) {
-  knex.select('contacts.*', 'addresses.line_1', 'addresses.line_2', 'addresses.city', 'addresses.zip').table('contacts').innerJoin('addresses', 'contacts.address_id', 'addresses.id').then(function (contactsAndAddresses) {
-    res.render('index', {contactsAndAddresses})
-  })
+function editContact(req, res, next) {
+    var id = req.params.id
+    console.log(id);
+  knex('addresses').innerJoin('contacts', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (onePerson) {
+    console.log(onePerson);
+      res.render('contacts/edit-contact', {onePerson})
+    })
+  }
+
+
+
+function joinTablesAndRender(location){
+  return function (req, res, next) {
+    knex.select('contacts.*', 'addresses.line_1', 'addresses.line_2', 'addresses.city', 'addresses.zip').table('contacts').innerJoin('addresses', 'contacts.address_id', 'addresses.id').then(function (contactsAndAddresses) {
+      res.render(location, {contactsAndAddresses})
+    })
+  }
 }
+
+function findIdAndRender(location) {
+  return function(req, res, next) {
+    var id = req.params['id']
+    knex('contacts').innerJoin('addresses', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (onePerson) {
+      res.render(location, {onePerson})
+    })
+  }
+}
+
 
 function newContactForm(req, res, next) {
   knex('addresses').innerJoin('contacts', 'addresses.id', 'contacts.address_id').then(function (address) {
-    console.log(address);
     res.render('contacts/new-contact', {address})
   })
 }
 
-router.get('/edit', function (req, res, next) {
-  res.render
-})
 
-
-function showOneContact(req, res, next) {
-  var id = req.params['id']
-  console.log(id);
-  knex('contacts').innerJoin('addresses', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (onePerson) {
-    console.log(onePerson);
-    res.render('contacts/show-one', {onePerson})
-  })
-}
 
 router.post('/', function(req, res, next) {
-console.log(req.body['address_id']);
   var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
   knex('contacts').insert(person, '*').then(function () {
-    console.log(person)
     res.redirect('/')
   })
 })

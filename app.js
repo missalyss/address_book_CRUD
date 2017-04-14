@@ -8,9 +8,8 @@ var methodOverride = require('method-override')
 //requiring routes files
 var index = require('./routes/index')
 var contacts = require('./routes/contacts')
-
+//define app
 var app = express()
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
