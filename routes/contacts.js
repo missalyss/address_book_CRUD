@@ -10,10 +10,12 @@ router.get('/:id/edit', editContact)
 
 function editContact(req, res, next) {
     var id = req.params.id
-    console.log(id);
-  knex('addresses').innerJoin('contacts', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (onePerson) {
-    console.log(onePerson);
-      res.render('contacts/edit-contact', {onePerson})
+    console.log(id)
+  knex('addresses').innerJoin('contacts', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (jointTableInfo) {
+    knex('addresses').then(function (addressOnly) {
+      console.log(jointTableInfo, addressOnly)
+      res.render('contacts/edit-contact', {addressOnly, jointTableInfo})
+    })
     })
   }
 
@@ -41,6 +43,7 @@ function findIdAndRender(location) {
 
 function newContactForm(req, res, next) {
   knex('addresses').innerJoin('contacts', 'addresses.id', 'contacts.address_id').then(function (address) {
+
     res.render('contacts/new-contact', {address})
   })
 }
@@ -56,10 +59,11 @@ router.post('/', function(req, res, next) {
 
 router.put('/:id/edit', function(req, res, next) {
   var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
+
   console.log(person);
   knex('contacts').where('id', id).update(person, [person])
-  .then(function(thing) {
-    console.log(thing);
+  .then(function() {
+    console.log(person);
     res.redirect('/contacts')
   })
 })

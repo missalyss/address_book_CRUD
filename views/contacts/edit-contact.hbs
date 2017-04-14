@@ -1,16 +1,18 @@
 <h3>Edit Contact</h3>
 
 
-{{#each onePerson}}
+{{#each jointTableInfo}}
 <form class="form-group" action="/contacts/{{id}}?_method=put" method="post">
 {{>new}}
 
+{{/each}}
   <select class="custom-select" name="address_id">
-    <option selected>Address</option>
+    <option>Address</option>
+    {{#each addressOnly}}
     <option name="address_id" value="{{address_id}}">{{line_1}}, {{line_2}}, {{city}}</option>
+    {{/each}}
   </select> </br></br>
 
   <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
-{{/each}}
