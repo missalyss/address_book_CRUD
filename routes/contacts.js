@@ -6,7 +6,7 @@ const knex = require('../db/connection');
 router.get('/', joinTablesAndRender('index'))
 router.get('/new', newContactForm)
 router.get('/:id', findIdAndRender('contacts/show-one'))
-router.get('/:id/edit', findIdAndRender('contacts/edit-contact'))
+router.get('/:id/edit', editContact)
 
 function editContact(req, res, next) {
     var id = req.params.id
@@ -30,7 +30,9 @@ function joinTablesAndRender(location){
 function findIdAndRender(location) {
   return function(req, res, next) {
     var id = req.params['id']
+    console.log(id);
     knex('contacts').innerJoin('addresses', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (onePerson) {
+      console.log(onePerson);
       res.render(location, {onePerson})
     })
   }
@@ -52,7 +54,9 @@ router.post('/', function(req, res, next) {
   })
 })
 
-// router.delete('/:id')
+router.delete('/:id', function(req, res, next) {
+  var id = req.params.id
+})
 
 
 

@@ -3,3 +3,14 @@
 
 <form class="form-group" action="/contacts" method="post">
 {{> new }}
+
+  <select class="custom-select" name="address_id">
+    <option selected>Address</option>
+    {{#each address}}
+    <option name="address_id" value="{{address_id}}">{{line_1}}, {{line_2}}, {{city}}</option>
+    {{/each}}
+  </select> </br></br>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
