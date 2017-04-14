@@ -9,3 +9,7 @@
 
 
 .innerJoin('addresses', 'addresses.id', 'contacts.address_id')
+
+
+<li>Phone: {{phone_number}}</li>
+<li>Email: {{email_address}}</li>

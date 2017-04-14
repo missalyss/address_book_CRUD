@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 const knex = require('../db/connection');
 
-/* GET users listing. */
+//get all
 router.get('/', function(req, res, next) {
-  knex('contacts').innerJoin('addresses', 'contacts.address_id', 'addresses.id').then(function (contactsAndAddresses) {
+  knex.select('contacts.id', 'contacts.first_name', 'contacts.last_name', 'contacts.img_url', 'addresses.line_1').table('contacts').innerJoin('addresses', 'contacts.address_id', 'addresses.id').then(function (contactsAndAddresses) {
+    console.log(contactsAndAddresses);
     res.render('index', {contactsAndAddresses})
   })
 })
@@ -17,7 +18,8 @@ router.get('/new', function(req, res, next) {
 })
 
 router.get('/:id', function(req, res, next) {
-  var id = req.params.id
+  var id = req.params['id']
+  console.log(id);
   knex('contacts').innerJoin('addresses', 'addresses.id', 'contacts.address_id').where('contacts.id', id).then(function (onePerson) {
     console.log(onePerson);
     res.render('contacts/show-one', {onePerson})
