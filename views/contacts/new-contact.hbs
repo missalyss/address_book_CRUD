@@ -7,7 +7,7 @@
   <select class="custom-select" name="address_id">
     <option selected>Address</option>
     {{#each address}}
-    <option name="address_id" value="address_id">{{line_1}}, {{line_2}}, {{city}}</option>
+    <option name="address_id" value="{{id}}">{{line_1}}, {{line_2}}, {{city}}</option>
     {{/each}}
   </select> </br></br>
 
