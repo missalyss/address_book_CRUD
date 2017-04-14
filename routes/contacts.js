@@ -60,7 +60,7 @@ router.put('/:id', function(req, res, next) {
     phone_number: req.body.phone_number,
     email_address: req.body.email_address,
     img_url: req.body.img_url,
-    address_id: req.body.id }
+    address_id: req.body.address_id }
 
   console.log(id, person);
   knex('contacts').where('id', id).update(person)
