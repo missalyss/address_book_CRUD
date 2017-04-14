@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const knex = require('../db/connection');
+var knex = require('../db/connection');
 
 //rendering routes
 router.get('/', joinTablesAndRender('index'))
@@ -80,4 +80,4 @@ router.delete('/:id', function(req, res, next) {
 
 
 
-module.exports = router;
+module.exports = router

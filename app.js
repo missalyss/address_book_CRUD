@@ -8,6 +8,7 @@ var methodOverride = require('method-override')
 //requiring routes files
 var index = require('./routes/index')
 var contacts = require('./routes/contacts')
+var addresses = require('./routes/addresses')
 //define app
 var app = express()
 
@@ -20,7 +21,7 @@ var hbs = require('hbs')
 var hbsutils = require('hbs-utils')(hbs)
 hbsutils.registerPartials(path.join(__dirname, 'views', 'contacts', 'shared') )
 
-//extra setup [favicon, morgan, bodyparser, ]
+//extra setup
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //links app.js to routes
 app.use('/', index)
+app.use('/addresses', addresses)
 app.use('/contacts', contacts)
 
 // catch 404 and forward to error handler
