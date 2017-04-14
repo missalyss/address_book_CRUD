@@ -50,12 +50,26 @@ function newContactForm(req, res, next) {
 router.post('/', function(req, res, next) {
   var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
   knex('contacts').insert(person, '*').then(function () {
-    res.redirect('/')
+    res.redirect('/contacts')
+  })
+})
+
+router.put('/:id/edit', function(req, res, next) {
+  var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
+  console.log(person);
+  knex('contacts').where('id', id).update(person, [person])
+  .then(function(thing) {
+    console.log(thing);
+    res.redirect('/contacts')
   })
 })
 
 router.delete('/:id', function(req, res, next) {
+  // var person = { id, first_name, last_name, phone_number, email_address, img_url, address_id } = req.body
   var id = req.params.id
+  knex('contacts').where('id', id).del().then(function () {
+    res.redirect('/contacts')
+  })
 })
 
 

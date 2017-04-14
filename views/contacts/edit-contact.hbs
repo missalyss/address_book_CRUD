@@ -1,5 +1,8 @@
 <h3>Edit Contact</h3>
+
+
 {{#each onePerson}}
+<form class="form-group" action="/contacts/{{id}}?_method=put" method="post">
 {{>new}}
 
   <select class="custom-select" name="address_id">
